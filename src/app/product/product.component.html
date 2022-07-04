@@ -1,0 +1,52 @@
+<p>product works!</p>
+<button class="btn btn-primary m-2" (click)="get()">Get List</button>
+<button class="btn btn-success m-2" (click)="post()">Add Product</button>
+<button class="btn btn-warning m-2" (click)="put()">Edit Product</button>
+<button class="btn btn-danger m-2" (click)="del()">Delete Product</button>
+
+<table *ngIf="flag[0]">
+    <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Cost</th>
+        <th>Supplier ID</th>
+    </tr>
+    <tr *ngFor="let p of productList">
+        <td>{{p.productId}}</td>
+        <td> {{ p.productName }} </td>
+        <td> {{p.cost}} </td>
+        <td> {{p.supplierId}} </td>
+    </tr>
+</table>
+
+<form #addForm="ngForm" *ngIf="flag[1]" (ngSubmit)="postProduct(addForm.value)">
+    Product Name:
+    <input type="text" name="" id="" [(ngModel)]="product.productName" [ngModelOptions]="{standalone: true}">
+    Cost:
+    <input type="number" [(ngModel)]="product.cost" [ngModelOptions]="{standalone: true}">
+    Supplier Id:
+    <input type="number" name="" id="" [(ngModel)]="product.supplierId" [ngModelOptions]="{standalone: true}">
+    <input type="submit" value="Add">
+</form>
+
+<form #getIdForm="ngForm" *ngIf="flag[2] || flag[4]" (ngSubmit)="changeProduct(getIdForm.value)">
+    Product ID:
+    <input type="number" name="" id=""  [(ngModel)]="productid" [ngModelOptions]="{standalone: true}">
+    <input type="submit" value="Select">
+</form>
+
+<form #editForm="ngForm" *ngIf="flag[2]" (ngSubmit)="putProduct(editForm.value)">
+    Product Name:
+    <input type="text" name="" id="" [(ngModel)]="product.productName" [ngModelOptions]="{standalone: true}">
+    Cost:
+    <input type="number" [(ngModel)]="product.cost" [ngModelOptions]="{standalone: true}">
+    Supplier Id:
+    <input type="number" name="" id="" [(ngModel)]="product.supplierId" [ngModelOptions]="{standalone: true}">
+    <input type="submit" value="Edit">
+</form>
+
+
+<form #deleteForm="ngForm" class="d-flex justify-content-center" *ngIf="flag[3]" (ngSubmit)="deleteProduct(productid)">
+    <p class="fs-3">{{product.productName}}</p>
+    <input type="submit" value="Delete" class="btn btn-outline-danger">
+</form>
